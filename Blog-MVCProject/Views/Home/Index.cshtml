@@ -2,8 +2,22 @@
     ViewBag.Title = "Home Page";
 }
 
+@model List<Blog_MVCProject.Models.Post>
+
 <div class="jumbotron">
-    Some info
+    @foreach (var p in Model)
+    {
+        <div>
+            <h2>@p.Title</h2>
+    <div>@p.Body</div>
+            @if (p.Author != null)
+            {
+                <div>@p.Author.UserName</div>
+            }
+            <div>@p.Date</div>
+            <div></div>
+        </div>
+    }
 </div>
 
 <div class="row">

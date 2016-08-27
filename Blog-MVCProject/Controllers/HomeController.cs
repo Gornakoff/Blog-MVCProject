@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Blog_MVCProject.Models;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Blog_MVCProject.Controllers
@@ -10,7 +8,10 @@ namespace Blog_MVCProject.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var db = new ApplicationDbContext();
+            var posts = db.Posts.OrderByDescending(p => p.Date).Take(4);
+
+            return View(posts.ToList());
         }
     }
 }
