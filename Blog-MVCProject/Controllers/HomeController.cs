@@ -9,7 +9,7 @@ namespace Blog_MVCProject.Controllers
         public ActionResult Index()
         {
             var db = new ApplicationDbContext();
-            var posts = db.Posts.OrderByDescending(p => p.Date).Take(4);
+            var posts = db.Posts.OrderByDescending(p => p.Date).Take(3);
 
             return View(posts.ToList());
         }

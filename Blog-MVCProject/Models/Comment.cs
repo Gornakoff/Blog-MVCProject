@@ -15,17 +15,16 @@ namespace Blog_MVCProject.Models
 
         [Required]
         public string Text { get; set; }
-
+        
         [Required]
-        public int PostID { get; set; }
+        public Post Post { get; set; }
 
-        public ApplicationUser AuthorID { get; set; }
+        public ApplicationUser Author { get; set; }
 
         [StringLength(100)]
         public string AuthorName { get; set; }
 
         [Required]
         public DateTime Date { get; set; }
-
     }
 }

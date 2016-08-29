@@ -10,14 +10,17 @@ using Blog_MVCProject.Models;
 
 namespace Blog_MVCProject.Controllers
 {
+    [ValidateInput(false)]
     public class PostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        
         // GET: Posts
         public ActionResult Index()
         {
-            return View(db.Posts.ToList());
+            var fullPostsInfo = db.Posts.Include(p => p.Author).ToList();
+            return View(fullPostsInfo);
         }
 
         // GET: Posts/Details/5
@@ -36,6 +39,7 @@ namespace Blog_MVCProject.Controllers
         }
 
         // GET: Posts/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -45,8 +49,9 @@ namespace Blog_MVCProject.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Body,Date")] Post post)
+        public ActionResult Create([Bind(Include = "Id,Title,Body")] Post post)
         {
             if (ModelState.IsValid)
             {
