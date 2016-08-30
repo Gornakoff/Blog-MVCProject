@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Body)
+            Content
         </dt>
 
         <dd>
@@ -27,12 +27,23 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Date)
+            Published
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Date)
         </dd>
+
+        @if (Model.DateModified != null)
+        {
+            <dt>
+                Modified
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateModified)
+            </dd>
+        }
 
     </dl>
 </div>

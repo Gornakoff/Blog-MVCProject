@@ -153,7 +153,7 @@ namespace Blog_MVCProject.Controllers
             {
                 var user = new ApplicationUser
                 {
-                    UserName = model.Email,
+                    UserName = model.UserName,
                     Email = model.Email,
                     FullName = model.FullName
                 };

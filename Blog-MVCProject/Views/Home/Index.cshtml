@@ -6,21 +6,20 @@
 
 @model List<Post>
 
-<div class="jumbotron">
-    @foreach (var p in Model)
-    {
-        <div>
-            <h2>@p.Title</h2>
+
+@foreach (var p in Model)
+{
+    <div>
+        <h2>@p.Title</h2>
     <div>@Html.Raw(p.Body)</div>
-            @if (p.Author != null)
-            {
-                <div>@p.Author.UserName</div>
-            }
-            <div>@p.Date</div>
-            <div></div>
-        </div>
-    }
-</div>
+        @if (p.Author != null)
+        {
+            <div>@p.Author.UserName</div>
+        }
+        <div>@p.Date</div>
+        <div></div>
+    </div>
+}
 
 <div class="row">
     <div class="col-md-4">

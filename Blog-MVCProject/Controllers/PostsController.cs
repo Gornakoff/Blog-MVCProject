@@ -55,6 +55,7 @@ namespace Blog_MVCProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.Date = DateTime.Now;
                 db.Posts.Add(post);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -87,6 +88,7 @@ namespace Blog_MVCProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.DateModified = DateTime.Now;
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

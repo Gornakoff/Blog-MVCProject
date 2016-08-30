@@ -69,6 +69,10 @@ namespace Blog_MVCProject.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        [Required]
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
+
         [Display(Name = "Full Name")]
         public string FullName { get; set; }
 

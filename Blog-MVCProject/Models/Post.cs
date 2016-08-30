@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Blog_MVCProject.Models
 {
     public class Post
     {
-        public Post()
-        {
-            this.Date = DateTime.Now;
-        }
+        //public Post()
+        //{
+        //    this.Date = DateTime.Now;
+        //}
 
         [Key]
         public int Id { get; set; }
@@ -22,8 +23,9 @@ namespace Blog_MVCProject.Models
         [DataType(DataType.MultilineText)]
         public string Body { get; set; }
         
-        [Required]
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
+        
+        public DateTime? DateModified { get; set; }
 
         public ApplicationUser Author { get; set; }
 
