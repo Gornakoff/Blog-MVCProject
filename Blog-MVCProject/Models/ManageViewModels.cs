@@ -58,12 +58,11 @@ namespace Blog_MVCProject.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class AddPhoneNumberViewModel
+    public class ChangeUsernameViewModel
     {
         [Required]
-        [Phone]
-        [Display(Name = "Phone Number")]
-        public string Number { get; set; }
+        [Display(Name = "New username")]
+        public string newUsername { get; set; }
     }
 
     public class VerifyPhoneNumberViewModel

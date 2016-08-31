@@ -1,7 +1,11 @@
-﻿@model IEnumerable<Blog_MVCProject.Models.Post>
+﻿@using Blog_MVCProject.Classes;
+@using Blog_MVCProject.Models
+
+@model List<Post>
 
 @{
     ViewBag.Title = "Index";
+
 }
 
 <h2>Index</h2>
@@ -12,34 +16,60 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            Title
         </th>
         <th>
             Content
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            Date
+        </th>
+        <th>
+            Author
+        </th>
+
+        <th>
+            Comments
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Body)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Tools.CutText(item.Body)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.FullName)
+            </td>
+            <td>
+                @foreach (var comment in item.Comments)
+                {
+                    <div>
+                        @Html.DisplayFor(modelComment => comment.Text)
+                    </div>
+                }
+            </td>
+            <td>
+                @if (User.IsInRole("Admins") || User.Identity.Name == item.Author.UserName)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @:|
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) @:|
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                }
+                else
+                {
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                }
+            </td>
+        </tr>
+    }
 
 </table>

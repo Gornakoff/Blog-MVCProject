@@ -16,7 +16,6 @@ namespace Blog_MVCProject.Models
         [Required]
         public string Text { get; set; }
         
-        [Required]
         public Post Post { get; set; }
 
         public ApplicationUser Author { get; set; }

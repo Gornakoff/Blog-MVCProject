@@ -7,10 +7,10 @@ namespace Blog_MVCProject.Models
 {
     public class Post
     {
-        //public Post()
-        //{
-        //    this.Date = DateTime.Now;
-        //}
+        public Post()
+        {
+            this.Comments = new HashSet<Comment>();
+        }
 
         [Key]
         public int Id { get; set; }
@@ -26,7 +26,7 @@ namespace Blog_MVCProject.Models
         public DateTime? Date { get; set; }
         
         public DateTime? DateModified { get; set; }
-
+        
         public ApplicationUser Author { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
