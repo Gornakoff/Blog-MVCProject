@@ -9,48 +9,55 @@
 }
 
 <div class="jumbotron">
-    <h2>Blog - All Posts</h2>
+    <h2>Blog - Posts</h2>
 </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Title
-        </th>
-        <th>
-            Content
-        </th>
-        <th>
-            Date
-        </th>
-        <th>
-            Author
-        </th>
+<hr />
 
-        <th>
-            Comments
-        </th>
-        <th></th>
-    </tr>
+<div class="create-post">
+    <button>
+        @Html.ActionLink("Create New Post", "Create")
+    </button>
+</div>
+
+<hr />
+
+<section class="post-section">
+    @foreach (var post in Model)
+    {
+        <article class="posts">
+            <h3 class="post-title"><a href="/Posts/Details/@post.Id">@post.Title</a></h3>
+            <div class="publish-info">
+                <i>Published on @post.Date</i>
+                @if (post.Author != null)
+                {
+                    <i>by @post.Author.FullName (@post.Author.UserName)</i>
+                }
+            </div>
+            <div class="post-body">
+                @Tools.CutText(post.Body)
+            </div>
+            <div class="comments">
+                <ul>
+                    @if (User.IsInRole("Admins") || User.Identity.Name == post.Author.UserName)
+                    {
+                        <li><button>@Html.ActionLink("Edit", "Edit", new { id = post.Id })</button></li>
+                        <li><button>@Html.ActionLink("Details", "Details", new { id = post.Id })</button></li>
+                        <li><button>@Html.ActionLink("Delete", "Delete", new { id = post.Id })</button></li>
+                    }
+                    else
+                    {
+                        <li><button>@Html.ActionLink("Details", "Details", new { id = post.Id })</button></li>
+                    }
+                </ul>
+            </div>
+        </article>
+    }
+</section>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Tools.CutText(item.Body)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author.FullName)
-            </td>
+        <div>
             <td>
                 @foreach (var comment in item.Comments)
                 {
@@ -60,18 +67,7 @@
                 }
             </td>
             <td>
-                @if (User.IsInRole("Admins") || User.Identity.Name == item.Author.UserName)
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @:|
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) @:|
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                }
-                else
-                {
-                    @Html.ActionLink("Details", "Details", new { id = item.Id })
-                }
+                
             </td>
-        </tr>
+        </div>
     }
-
-</table>

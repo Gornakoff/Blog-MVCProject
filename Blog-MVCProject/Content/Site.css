@@ -142,3 +142,18 @@ section>a{
 section>a:hover{
     color: #efd8d8;
 }
+
+/*POSTS COntroller*/
+.create-post {
+    text-align: center;
+}
+
+li{
+    text-decoration: none;
+    display: inline;
+    list-style-type: none;
+}
+
+.comments {
+
+}
