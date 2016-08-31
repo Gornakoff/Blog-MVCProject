@@ -11,21 +11,29 @@
     <h2>Blog - Latest Posts</h2>
 </div>
 
-<section class="row">
-    @foreach (var post in Model)
+<aside class="sidebar col-md-3">
+    <div>
+        Recent Posts
+    </div>
+    @foreach (var post in Model.Take(5))
     {
-        <article class="post col-md-6">
-            <h2><a href="/Posts/Details/@post.Id">@post.Title</a></h2>
-            <div>
+        <section><a href="/Posts/Details/@post.Id">@Tools.CutText(@post.Title, 30)</a></section>
+    }
+</aside>
+
+<section class="post-section col-md-8">
+    @foreach (var post in Model.Take(3))
+    {
+        <article class="posts">
+            <h3 class="post-title"><a href="/Posts/Details/@post.Id">@post.Title</a></h3>
+            <div class="publish-info">
                 <i>Published on @post.Date</i>
-            </div>
-            <div>
                 @if (post.Author != null)
                 {
                     <i>by @post.Author.FullName (@post.Author.UserName)</i>
                 }
             </div>
-            <div>
+            <div class="post-body">
                 @Tools.CutText(post.Body)
             </div>
         </article>
