@@ -1,0 +1,17 @@
+﻿@using Blog_MVCProject.Models;
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Users</h1>
+</div>
+
+@foreach (var u in Model)
+{
+    <div>
+        <h3>@u.FullName</h3>
+        <div>@u.UserName</div>
+    </div>
+}

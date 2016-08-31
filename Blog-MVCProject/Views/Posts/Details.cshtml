@@ -46,8 +46,19 @@
         }
 
     </dl>
+
+    <div>Comments</div>
+    @foreach (var comment in Model.Comments)
+    {
+        <div>
+            @Html.DisplayFor(modelComment => comment.Text)
+        </div>
+    }
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @if (User.IsInRole("Admins") || User.Identity.Name == Model.Author.UserName)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) @:|
+    }
     @Html.ActionLink("Back to List", "Index")
 </p>
