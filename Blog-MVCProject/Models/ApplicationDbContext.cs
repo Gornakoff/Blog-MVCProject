@@ -18,7 +18,5 @@ namespace Blog_MVCProject.Models
         {
             return new ApplicationDbContext();
         }
-
-        public System.Data.Entity.DbSet<Blog_MVCProject.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
