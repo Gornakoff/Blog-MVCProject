@@ -1,6 +1,7 @@
 ﻿using Blog_MVCProject.Models;
 using System.Linq;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Blog_MVCProject.Controllers
 {
@@ -9,9 +10,18 @@ namespace Blog_MVCProject.Controllers
         public ActionResult Index()
         {
             var db = new ApplicationDbContext();
-            var posts = db.Posts.OrderByDescending(p => p.Date).Take(3);
+            var posts = db.Posts.Include(p => p.Author).OrderByDescending(p => p.Date).Take(3);
 
             return View(posts.ToList());
+        }
+
+        public ActionResult Users()
+        {
+            var db = new ApplicationDbContext();
+
+            var users = db.Users.OrderBy(u => u.UserName);
+
+            return View(users.ToList());
         }
     }
 }

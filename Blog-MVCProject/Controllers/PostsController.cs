@@ -30,7 +30,7 @@ namespace Blog_MVCProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = db.Posts.Include(p => p.Author).Include(c => c.Comments).FirstOrDefault(x => x.Id == id);
             if (post == null)
             {
                 return HttpNotFound();
@@ -50,12 +50,14 @@ namespace Blog_MVCProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Body")] Post post)
         {
             if (ModelState.IsValid)
             {
                 post.Date = DateTime.Now;
+                post.Author = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
                 db.Posts.Add(post);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -65,6 +67,7 @@ namespace Blog_MVCProject.Controllers
         }
 
         // GET: Posts/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,6 +86,8 @@ namespace Blog_MVCProject.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,Body,Date")] Post post)
         {
@@ -97,6 +102,7 @@ namespace Blog_MVCProject.Controllers
         }
 
         // GET: Posts/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
