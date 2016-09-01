@@ -10,8 +10,11 @@
 
 @foreach (var u in Model)
 {
-    <div>
-        <h3>@u.FullName</h3>
-        <div>@u.UserName</div>
+    
+    <div class="users">
+        <div>Username: @u.UserName</div>
+        <div>Full Name: @u.FullName</div>
+        <div>E-mail address: @u.Email</div>
     </div>
+    <hr />
 }

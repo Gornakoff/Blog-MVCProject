@@ -22,11 +22,26 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
+                        @if (User.IsInRole("Admins"))
+                        {
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
                         <li>@Html.ActionLink("New Post", "Create", "Posts")</li>
                         <li>@Html.ActionLink("Comments", "Index", "Comments")</li>
                         <li>@Html.ActionLink("Users", "Users", "Home")</li>
+                        }
+                        else if (User.Identity.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
+                            <li>@Html.ActionLink("New Post", "Create", "Posts")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
+                        }
+
                     </ul>
                     @Html.Partial("_LoginPartial")
                 </div>
@@ -35,12 +50,13 @@
         <div class="container">
             @RenderBody()
         </div>
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Gornakov's Blog</p>
-        </footer>
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)
     </div>
+
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Gornakov's Blog</p>
+    </footer>
 </body>
 </html>

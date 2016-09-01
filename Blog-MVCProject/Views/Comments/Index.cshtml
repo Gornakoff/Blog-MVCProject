@@ -4,43 +4,30 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="jumbotron">
+    <h2>Blog - Comments</h2>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Text)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AuthorName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
+<div class="comments" id="list-comments">
+    @foreach (var comment in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Text)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuthorName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
+        <div class="comments-wrapper" id="comments-wrapper">
+            <div class="blog-comments" id="comment-author">
+                Published by: @Html.DisplayFor(modelComment => comment.AuthorName) on @Html.DisplayFor(modelItem => comment.Date)
+            </div>
+            <div class="blog-comments" id="comment-text">
+                @Html.DisplayFor(modelComment => comment.Text)
+            </div>
+            <div class="buttons" id="edit-buttons">
+                <ul>
+                    @if (User.IsInRole("Admins"))
+                    {
+                        <li><button>@Html.ActionLink("Edit", "Edit", new { id = comment.Id })</button></li>
+                        <li><button>@Html.ActionLink("Delete", "Delete", new { id = comment.Id })</button></li>
+                    }
+                </ul>
+            </div>
+        </div>
     }
-
-</table>
+</div>

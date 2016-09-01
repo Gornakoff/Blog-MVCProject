@@ -19,7 +19,7 @@ namespace Blog_MVCProject.Controllers
         // GET: Posts
         public ActionResult Index()
         {
-            var fullPostsInfo = db.Posts.Include(p => p.Author).Include(c => c.Comments).ToList();
+            var fullPostsInfo = db.Posts.OrderByDescending(p => p.Date).Include(p => p.Author).Include(c => c.Comments).ToList();
             return View(fullPostsInfo);
         }
 

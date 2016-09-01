@@ -22,7 +22,7 @@
 
 <hr />
 
-<section class="post-section">
+<section class="post-section" id="all-posts">
     @foreach (var post in Model)
     {
         <article class="posts">
@@ -37,7 +37,7 @@
             <div class="post-body">
                 @Tools.CutText(post.Body)
             </div>
-            <div class="comments">
+            <div class="buttons">
                 <ul>
                     @if (User.IsInRole("Admins") || User.Identity.Name == post.Author.UserName)
                     {
@@ -51,23 +51,29 @@
                     }
                 </ul>
             </div>
+            <div id="comments">Comments</div>
+            @if (post.Comments.Count > 0)
+            {
+            <div class="comments">
+                @foreach (var comment in post.Comments)
+                {
+                    <div class="comments-wrapper">
+                        <div id="comment-author">
+                            Published by: @Html.DisplayFor(modelComment => comment.Author.FullName)
+                        </div>
+                        <div id="comment-text">
+                            @*@@Html.DisplayFor(modelComment => comment.Text)*@
+                            @Tools.CutText(comment.Text)
+                        </div>
+                    </div>
+                }
+            </div>
+            }
+            <div id="comment-button">
+                <button>
+                    @Html.ActionLink("Add Comment", "Create", "Comments")
+                </button>
+</div>
         </article>
     }
 </section>
-
-    @foreach (var item in Model)
-    {
-        <div>
-            <td>
-                @foreach (var comment in item.Comments)
-                {
-                    <div>
-                        @Html.DisplayFor(modelComment => comment.Text)
-                    </div>
-                }
-            </td>
-            <td>
-                
-            </td>
-        </div>
-    }

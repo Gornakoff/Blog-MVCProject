@@ -4,61 +4,69 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
+<div class="jumbotron">
+    <h2>Post Details</h2>
+</div>
 <div>
-    <h4>Post</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+    <section class="post-section" id="all-posts">
+            <article class="posts">
+                <h3 class="post-title">@Html.DisplayFor(model => model.Title)</h3>
+                <div class="publish-info">
+                    <i>Published on @Html.DisplayFor(model => model.Date)</i>
+                    <i>by @Model.Author.FullName (@Model.Author.UserName)</i>
+                </div>
+                <div class="publish-info">
+                    @if (Model.DateModified != null)
+                    {
+                        <i>
+                            Modified on
+                        </i>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            Content
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Body)
-        </dd>
-
-        <dt>
-            Published
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        @if (Model.DateModified != null)
-        {
-            <dt>
-                Modified
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DateModified)
-            </dd>
-        }
-
-    </dl>
-
-    <div>Comments</div>
-    @foreach (var comment in Model.Comments)
-    {
-        <div>
-            @Html.DisplayFor(modelComment => comment.Text)
-        </div>
-    }
+                        <i>
+                            @Html.DisplayFor(model => model.DateModified)
+                        </i>
+                    }
+                </div>
+                <div class="post-body">
+                    @Html.DisplayFor(model => model.Body)
+                </div>
+                
+                <div id="comments">Comments</div>
+                @if (Model.Comments.Count > 0)
+                {
+                    <div class="comments">
+                        @foreach (var comment in Model.Comments)
+                        {
+                            <div class="comments-wrapper">
+                                <div id="comment-author">
+                                    Published by: @comment.AuthorName
+                                </div>
+                                <div id="comment-text">
+                                    @Html.DisplayFor(modelComment => comment.Text)
+                                </div>
+                            </div>
+                        }
+                                </div>
+                }
+                <div id="comment-button">
+                    <button>
+                        @Html.ActionLink("Add Comment", "Create", "Comments")
+                    </button>
+                </div>
+            </article>
+    </section>
 </div>
 <p>
     @if (User.IsInRole("Admins") || User.Identity.Name == Model.Author.UserName)
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) @:|
+        <div class="back">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+        </div>
+        <div class="back">
+            @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+        </div>
     }
-    @Html.ActionLink("Back to List", "Index")
+    <div class="back">
+        @Html.ActionLink("Back to Posts", "Index")
+    </div>
 </p>

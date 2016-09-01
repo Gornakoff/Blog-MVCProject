@@ -19,10 +19,10 @@ namespace Blog_MVCProject.Models
         public Post Post { get; set; }
 
         public ApplicationUser Author { get; set; }
-
+        
         [StringLength(100)]
         public string AuthorName { get; set; }
-
+        
         [Required]
         public DateTime Date { get; set; }
     }

@@ -17,7 +17,8 @@ namespace Blog_MVCProject.Controllers
         // GET: Comments
         public ActionResult Index()
         {
-            return View(db.Comments.ToList());
+            var commentsInfo = db.Comments.OrderByDescending(c => c.Date).Include(c => c.Author).Include(p => p.Post).ToList();
+            return View(commentsInfo);
         }
 
         // GET: Comments/Details/5
@@ -46,10 +47,15 @@ namespace Blog_MVCProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Text,PostID,AuthorName,Date")] Comment comment)
+        public ActionResult Create([Bind(Include = "Id,Text,Post,AuthorName")] Comment comment)
         {
             if (ModelState.IsValid)
             {
+                if (User.Identity.IsAuthenticated)
+                {
+                    comment.AuthorName = User.Identity.Name;
+                }
+                comment.Post = db.Posts.FirstOrDefault();
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -78,7 +84,7 @@ namespace Blog_MVCProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Text,PostID,AuthorName,Date")] Comment comment)
+        public ActionResult Edit([Bind(Include = "Id,Text,Post,AuthorName,Data")] Comment comment)
         {
             if (ModelState.IsValid)
             {
