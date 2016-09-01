@@ -35,7 +35,7 @@
                 }
             </div>
             <div class="post-body">
-                @Tools.CutText(post.Body)
+                @Html.Raw(@Tools.CutText(post.Body))
             </div>
             <div class="buttons">
                 <ul>
@@ -59,7 +59,7 @@
                 {
                     <div class="comments-wrapper">
                         <div id="comment-author">
-                            Published by: @Html.DisplayFor(modelComment => comment.Author.FullName)
+                            Published by: @Html.DisplayFor(modelComment => comment.AuthorName) on @comment.Date
                         </div>
                         <div id="comment-text">
                             @*@@Html.DisplayFor(modelComment => comment.Text)*@

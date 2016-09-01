@@ -24,11 +24,11 @@
                     <ul class="nav navbar-nav">
                         @if (User.IsInRole("Admins"))
                         {
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
-                        <li>@Html.ActionLink("New Post", "Create", "Posts")</li>
-                        <li>@Html.ActionLink("Comments", "Index", "Comments")</li>
-                        <li>@Html.ActionLink("Users", "Users", "Home")</li>
+                        <li id="admin">@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li id="admin">@Html.ActionLink("Posts", "Index", "Posts")</li>
+                        <li id="admin">@Html.ActionLink("New Post", "Create", "Posts")</li>
+                        <li id="admin">@Html.ActionLink("Comments", "Index", "Comments")</li>
+                        <li id="admin">@Html.ActionLink("Users", "Users", "Home")</li>
                         }
                         else if (User.Identity.IsAuthenticated)
                         {
