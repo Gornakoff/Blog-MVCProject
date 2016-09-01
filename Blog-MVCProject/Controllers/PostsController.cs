@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Blog_MVCProject.Models;
+using Blog_MVCProject.Extensions;
 
 namespace Blog_MVCProject.Controllers
 {
@@ -60,6 +61,7 @@ namespace Blog_MVCProject.Controllers
                 post.Author = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
                 db.Posts.Add(post);
                 db.SaveChanges();
+                this.AddNotification("Post created!", NotificationType.INFO);
                 return RedirectToAction("Index");
             }
 
@@ -96,6 +98,7 @@ namespace Blog_MVCProject.Controllers
                 post.DateModified = DateTime.Now;
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
+                this.AddNotification("Post edited successfully!", NotificationType.INFO);
                 return RedirectToAction("Index");
             }
             return View(post);
@@ -125,6 +128,7 @@ namespace Blog_MVCProject.Controllers
             Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
+            this.AddNotification("Post Deleted Successfully!", NotificationType.INFO);
             return RedirectToAction("Index");
         }
 

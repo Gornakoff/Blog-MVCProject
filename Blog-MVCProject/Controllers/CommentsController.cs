@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Blog_MVCProject.Models;
+using Blog_MVCProject.Extensions;
 
 namespace Blog_MVCProject.Controllers
 {
@@ -58,6 +59,7 @@ namespace Blog_MVCProject.Controllers
                 comment.Post = db.Posts.FirstOrDefault();
                 db.Comments.Add(comment);
                 db.SaveChanges();
+                this.AddNotification("Comment created!", NotificationType.INFO);
                 return RedirectToAction("Index");
             }
 
@@ -118,6 +120,7 @@ namespace Blog_MVCProject.Controllers
             Comment comment = db.Comments.Find(id);
             db.Comments.Remove(comment);
             db.SaveChanges();
+            this.AddNotification("Comment Deleted Successfully!", NotificationType.INFO);
             return RedirectToAction("Index");
         }
 

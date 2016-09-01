@@ -266,3 +266,8 @@ button:hover {
     padding-top: 5px;
     margin-left: 105px;
 }
+
+.alert {
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
